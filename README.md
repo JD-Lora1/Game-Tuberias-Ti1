@@ -1,5 +1,5 @@
 ## Integrantes:
-* Juan Diego Lora
+* Juan Diego Lora -
 * Jeison Lasprilla
 
 
