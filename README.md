@@ -3,7 +3,7 @@
 * Jeison Lasprilla
 
 
-## DESCRIPCIÓN GENERAL:
+
 Desarrollar una solución de software que permita simular un videojuego de tuberías, donde un usuario pueda editar las casillas de un tablero de 8x8, colocando o quitando tuberías entre la fuente y el drenaje, siguiendo ciertas reglas, si el agua llega de la fuente al drenaje, este gana. Así mismo se debe permitir al usuario que vea su puntaje obtenido.
 
 ## Requerimientos
