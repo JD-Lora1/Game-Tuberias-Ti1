@@ -6,6 +6,7 @@
 ## DESCRIPCIÓN GENERAL:
 Desarrollar una solución de software que permita simular un videojuego de tuberías, donde un usuario pueda editar las casillas de un tablero de 8x8, colocando o quitando tuberías entre la fuente y el drenaje, siguiendo ciertas reglas, si el agua llega de la fuente al drenaje, este gana. Así mismo se debe permitir al usuario que vea su puntaje obtenido.
 
+##Requerimientos
 
 1. Desarrollar una solución de software que permita simular un tablero 8x8 donde las casillas sean editables por el usuario para la instalación de tuberías a excepción de la fuente y el drenaje ubicados de manera aleatoria.
 
