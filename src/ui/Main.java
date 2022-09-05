@@ -34,8 +34,8 @@ public class Main {
             case "1":
                 System.out.println("Type your nickname");
                 String nickname = sc.nextLine();
+                pipeMania.startGame(nickname);
 
-                //crea el tablero y sale el otro menú
                 String select2;
                 do{
                     select2 = options2();
@@ -65,13 +65,6 @@ public class Main {
         switch (select2){
 
             case "1":
-
-                System.out.println("Type your nickname");
-                String nickname = sc.nextLine();
-
-                pipeMania.newGame(nickname);
-
-                //crea el tablero y sale el otro menú
                 break;
 
             case "2":

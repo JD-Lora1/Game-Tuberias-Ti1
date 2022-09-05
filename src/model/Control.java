@@ -3,11 +3,12 @@ import model.Game;
 
 public class Control {
 
-    public Control() {
-    }
+    private Game game;
 
-    public void newGame(String nickname){
-
+    public void startGame(String nickname){
+        game = new Game(new Player(nickname));
+        game.createBoxes();
+        game.print();
     }
 
 }
