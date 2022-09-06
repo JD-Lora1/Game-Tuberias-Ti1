@@ -17,59 +17,58 @@ public class Game {
         board = new HashMap<>();
     }
 
-//    public void put(String key, Box value){
-//        board.put(key, value);
-//    }
-
     public void createBoxes(){
-        createBoxes(1,1, null);
+        int[] key = new int[2];
+        key[0]=1;
+        key[1]=1;
+        createBoxes(key, "");
     }
 
-    private void createBoxes(int x, int y, String key){
-
-        key = x+","+y;
+    private void createBoxes(int[] keyArray, String key){
+        key = keyArray[0]+","+keyArray[1];
         board.put(key, new Box(" "));
 
-        if(x == 8 && y == 8){
+        if(keyArray[0] == 8 && keyArray[1] == 8){
             return;
         }
 
-        if(y%8 == 0){
-            x = x+1;
-            y = 1;
+        if(keyArray[1]%8 == 0){
+            keyArray[0] = keyArray[0]+1;
+            keyArray[1] = 1;
         }else{
-            y = y+1;
+            keyArray[1] = keyArray[1]+1;
         }
 
-        createBoxes(x,y,key);
+        createBoxes(keyArray, key);
     }
 
     public void print(){
         System.out.println("\n    1    2    3    4    5    6    7    8");
         System.out.print(" "+1);
-        print(1,1, null);
+        int[] key = new int[2];
+        key[0]=1;
+        key[1]=1;
+        print(key, "");
     }
 
-    private void print(int x, int y, String key){
-
-        key = x+","+y;
+    private void print(int[] keyArray, String key){
+        key = keyArray[0]+","+keyArray[1];
         System.out.print(board.get(key).toString());
 
-        if(x == 8 && y == 8){
+        if(keyArray[0] == 8 && keyArray[1] == 8){
             System.out.println("\n");
             return;
         }
-
-        if(y%8 == 0){
-            x = x+1;
-            y = 1;
+        if(keyArray[1]%8 == 0){
+            keyArray[0] = keyArray[0]+1;
+            keyArray[1] = 1;
             System.out.println();
-            System.out.print(" "+x);
+            System.out.print(" "+keyArray[0]);
         }else{
-            y = y+1;
+            keyArray[1] = keyArray[1]+1;
         }
 
-        print(x,y,key);
+        print(keyArray, key);
     }
 
 }
