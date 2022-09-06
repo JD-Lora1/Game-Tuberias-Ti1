@@ -13,6 +13,7 @@ public class Game {
     private Date date;
     private Player player;
     private HashMap<String, Box> board;
+    private PipesList pipesList;
     private Random random = new Random();
     private int[] rand1 = new int[2];
     private int[] rand2 = new int[2];
@@ -20,6 +21,7 @@ public class Game {
     public Game(Player player) {
         this.player = player;
         board = new HashMap<>();
+        pipesList = new PipesList();
     }
 
     public void createBoxes(){
@@ -40,8 +42,10 @@ public class Game {
         key = keyArray[0]+","+keyArray[1];
         if(key.equals(randFountain)){
             board.put(key, new Box("F"));
+            pipesList.setFountain(board.get(key));
         }else if (key.equals(randDrain)){
             board.put(key, new Box("D"));
+            pipesList.setDrain(board.get(key));
         }else {
             board.put(key, new Box("x"));
         }

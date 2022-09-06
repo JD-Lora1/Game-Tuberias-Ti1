@@ -18,4 +18,27 @@ public class PipesList {
         }
     }
 
+    public Box getFountain() {
+        return fountain;
+    }
+
+    public void setFountain(Box fountain) {
+        this.fountain = fountain;
+    }
+
+    public Box getDrain() {
+        return drain;
+    }
+
+    public void setDrain(Box drain) {
+        this.drain = drain;
+    }
+
+    public Box getTail() {
+        return tail;
+    }
+
+    public void setTail(Box tail) {
+        this.tail = tail;
+    }
 }
