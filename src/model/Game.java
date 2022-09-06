@@ -1,6 +1,8 @@
 package model;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
+
 import model.Box;
 import model.Player;
 import model.PipesList;
@@ -11,6 +13,9 @@ public class Game {
     private Date date;
     private Player player;
     private HashMap<String, Box> board;
+    private Random random = new Random();
+    private int[] rand1 = new int[2];
+    private int[] rand2 = new int[2];
 
     public Game(Player player) {
         this.player = player;
@@ -21,12 +26,25 @@ public class Game {
         int[] key = new int[2];
         key[0]=1;
         key[1]=1;
-        createBoxes(key, "");
+        rand1[0] = random.nextInt(8)+1;
+        rand1[1] = random.nextInt(8)+1;
+        rand2[0] = random.nextInt(8)+1;
+        rand2[1] = random.nextInt(8)+1;
+        String randFountain = rand1[0]+","+rand1[0];
+        String randDrain = rand2[0]+","+rand2[0];
+
+        createBoxes(key, "", randFountain,randDrain);
     }
 
-    private void createBoxes(int[] keyArray, String key){
+    private void createBoxes(int[] keyArray, String key, String randFountain, String randDrain){
         key = keyArray[0]+","+keyArray[1];
-        board.put(key, new Box(" "));
+        if(key.equals(randFountain)){
+            board.put(key, new Box("F"));
+        }else if (key.equals(randDrain)){
+            board.put(key, new Box("D"));
+        }else {
+            board.put(key, new Box("x"));
+        }
 
         if(keyArray[0] == 8 && keyArray[1] == 8){
             return;
@@ -39,7 +57,7 @@ public class Game {
             keyArray[1] = keyArray[1]+1;
         }
 
-        createBoxes(keyArray, key);
+        createBoxes(keyArray, key,randFountain,randDrain);
     }
 
     public void print(){

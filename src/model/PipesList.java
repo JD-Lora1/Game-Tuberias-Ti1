@@ -2,18 +2,19 @@ package model;
 
 public class PipesList {
 
-    private NodeLL drain;
-    private NodeLL source;
-    private NodeLL next;
-    private NodeLL previous;
+    private Box fountain; // Fuente F
+    private Box drain; // Drenaje D
+    private Box tail; //temporal tail
 
-    public void addLast(NodeLL node){
-        if(drain == null){
-            drain = node;
-            source = node;
-        }else{
-            source.setNext(node);
-            source = node;
+    public void addLast(Box box){
+        if(tail == null){
+            tail = box;
+            fountain.setNext(tail);
+            tail.setPrev(fountain);
+        }else {
+            tail.setNext(box);
+            tail.getNext().setPrev(tail);
+            tail = box;
         }
     }
 

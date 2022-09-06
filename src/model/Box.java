@@ -4,6 +4,8 @@ import java.util.HashMap;
 public class Box {
 
     private String type;
+    private Box next;
+    private Box prev;
 
     public Box(String type) {
         this.type = type;
@@ -11,7 +13,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return " ["+type+"] ";
+        return "  "+type+"  ";
     }
 
     public String getType() {
@@ -20,5 +22,21 @@ public class Box {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Box getNext() {
+        return next;
+    }
+
+    public void setNext(Box next) {
+        this.next = next;
+    }
+
+    public Box getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Box prev) {
+        this.prev = prev;
     }
 }
