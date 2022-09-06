@@ -65,7 +65,32 @@ public class Main {
         switch (select2){
 
             case "1":
-                System.out.println("Please enter a coordinate (eg: 3,4)");
+                boolean cond = true;
+                String coordinate="";
+                while (cond){
+                    try {
+                        System.out.println("Please enter the row (eg:5)");
+                        int xAxis = Integer.parseInt(sc.nextLine());
+                        coordinate = xAxis+"";
+                        System.out.println("Please enter the column (eg:0)");
+                        int yAxis = Integer.parseInt(sc.nextLine());
+                        coordinate = coordinate+","+yAxis;
+                        //Test if it exists
+                        pipeMania.getGame().getBoard().get(coordinate).getType();
+                        cond = false;
+                    }catch (java.util.InputMismatchException e){
+                        System.out.println("Please provide a number");
+                    }catch (NullPointerException e){
+                        System.out.println("Please provide a valid coordinate");
+                    }
+                }
+                System.out.println("Please enter one of these options:\n" +
+                        " * 1: Horizontal pipe (=)\n" +
+                        " * 2: Vertical pipe (||)\n" +
+                        " * 3: Circular pipe (o)\n" +
+                        " * 4: Delete pipe");
+                String type = sc.nextLine();
+                pipeMania.getGame().setBoxType(coordinate, type);
                 break;
 
             case "2":

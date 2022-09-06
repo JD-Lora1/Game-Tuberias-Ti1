@@ -13,7 +13,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return "  "+type+"  ";
+        return " "+type+" ";
     }
 
     public String getType() {
