@@ -1,6 +1,6 @@
 package model;
 
-public class LinkedList {
+public class PipesList {
 
     private NodeLL drain;
     private NodeLL source;

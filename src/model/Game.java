@@ -3,7 +3,7 @@ import java.util.Date;
 import java.util.HashMap;
 import model.Box;
 import model.Player;
-import model.LinkedList;
+import model.PipesList;
 
 public class Game {
 
