@@ -26,12 +26,16 @@ public class Game {
 
     public void createBoxes(){
         int[] key = new int[2];
-        key[0]=1;
-        key[1]=1;
-        rand1[0] = random.nextInt(8)+1;
-        rand1[1] = random.nextInt(8)+1;
-        rand2[0] = random.nextInt(8)+1;
-        rand2[1] = random.nextInt(8)+1;
+        key[0]=0;
+        key[1]=0;
+        rand1[0] = random.nextInt(8);
+        rand1[1] = random.nextInt(8);
+        rand2[0] = random.nextInt(8);
+        rand2[1] = random.nextInt(8);
+        while (rand1[0]==rand2[0] && rand1[1]==rand2[1]){
+            rand2[0] = random.nextInt(8);
+            rand2[1] = random.nextInt(8);
+        }
         String randFountain = rand1[0]+","+rand1[0];
         String randDrain = rand2[0]+","+rand2[0];
 
@@ -50,26 +54,25 @@ public class Game {
             board.put(key, new Box("x"));
         }
 
-        if(keyArray[0] == 8 && keyArray[1] == 8){
+        if(keyArray[0] == 7 && keyArray[1] == 7){
             return;
         }
 
-        if(keyArray[1]%8 == 0){
+        if(keyArray[1]%7==0 && keyArray[1]!=0){
             keyArray[0] = keyArray[0]+1;
-            keyArray[1] = 1;
+            keyArray[1] = 0;
         }else{
             keyArray[1] = keyArray[1]+1;
         }
-
         createBoxes(keyArray, key,randFountain,randDrain);
     }
 
     public void print(){
-        System.out.println("\n    1    2    3    4    5    6    7    8");
-        System.out.print(" "+1);
+        System.out.println("\n    0    1    2    3    4    5    6    7");
+        System.out.print(" "+0);
         int[] key = new int[2];
-        key[0]=1;
-        key[1]=1;
+        key[0]=0;
+        key[1]=0;
         print(key, "");
     }
 
@@ -77,13 +80,13 @@ public class Game {
         key = keyArray[0]+","+keyArray[1];
         System.out.print(board.get(key).toString());
 
-        if(keyArray[0] == 8 && keyArray[1] == 8){
+        if(keyArray[0] == 7 && keyArray[1] == 7){
             System.out.println("\n");
             return;
         }
-        if(keyArray[1]%8 == 0){
+        if(keyArray[1]%7 == 0 && keyArray[1]!=0){
             keyArray[0] = keyArray[0]+1;
-            keyArray[1] = 1;
+            keyArray[1] = 0;
             System.out.println();
             System.out.print(" "+keyArray[0]);
         }else{

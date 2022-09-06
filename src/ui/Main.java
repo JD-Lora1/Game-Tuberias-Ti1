@@ -65,6 +65,7 @@ public class Main {
         switch (select2){
 
             case "1":
+                System.out.println("Please enter a coordinate (eg: 3,4)");
                 break;
 
             case "2":
