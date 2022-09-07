@@ -1,4 +1,5 @@
 package ui;
+import java.text.ParseException;
 import java.util.Scanner;
 import model.Control;
 
@@ -40,6 +41,7 @@ public class Main {
                 do{
                     select2 = options2();
                     menu2(select2);
+                    pipeMania.toPrintGamge();
 
                 }while (!select2.equals("3"));
 
@@ -78,7 +80,7 @@ public class Main {
                         //Test if it exists
                         pipeMania.getGame().getBoard().get(coordinate).getType();
                         cond = false;
-                    }catch (java.util.InputMismatchException e){
+                    }catch (NumberFormatException e){
                         System.out.println("Please provide a number");
                     }catch (NullPointerException e){
                         System.out.println("Please provide a valid coordinate");
@@ -89,6 +91,7 @@ public class Main {
                         " * 2: Vertical pipe (||)\n" +
                         " * 3: Circular pipe (o)\n" +
                         " * 4: Delete pipe");
+
                 String type = sc.nextLine();
                 pipeMania.getGame().setBoxType(coordinate, type);
                 break;

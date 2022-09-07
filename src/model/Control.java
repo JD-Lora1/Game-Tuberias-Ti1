@@ -14,4 +14,7 @@ public class Control {
     public Game getGame() {
         return game;
     }
+    public void toPrintGamge(){
+        game.print();
+    }
 }

@@ -104,7 +104,7 @@ public class Game {
         pipesList.getSource();
     }
 
-    public void setBoxType(String opt, String coordinate){
+    public void setBoxType(String coordinate, String opt){
         /**
          * 1: =
          * 2: ||
@@ -112,12 +112,16 @@ public class Game {
          * 4: Delete, break links, setType:X
          * */
         if (opt.equals("1")) {
+            System.out.println("opt 1");
             board.get(coordinate).setType(" = ");
         }else if (opt.equals("2")) {
-            board.get(coordinate).setType(" ||");
+            System.out.println("opt 2");
+            board.get(coordinate).setType("|| ");
         }else if (opt.equals("3")) {
+            System.out.println("opt 3");
             board.get(coordinate).setType(" o ");
         }else if(opt.equals("4")){
+            System.out.println("opt 4");
             board.get(coordinate).setType(" x ");
             System.out.println("The pipe was deleted");
             //Delete node, break links
