@@ -86,7 +86,7 @@ public class Main {
                         System.out.println("Please provide a valid coordinate");
                     }
                 }
-                System.out.println("Please enter one of these options:\n" +
+                System.out.println("Please enter one of these optio1ns:\n" +
                         " * 1: Horizontal pipe (=)\n" +
                         " * 2: Vertical pipe (||)\n" +
                         " * 3: Circular pipe (o)\n" +

@@ -43,9 +43,15 @@ public class Game {
         if(key.equals(randFountain)){
             board.put(key, new Box(" F "));
             pipesList.setSource(board.get(key));
+
+            //Set box key links for source
+            boxKeyLinks(keyArray, pipesList.getSource());
         }else if (key.equals(randDrain)){
             board.put(key, new Box(" D "));
             pipesList.setDrain(board.get(key));
+
+            //Set box key links for drain
+            boxKeyLinks(keyArray, pipesList.getDrain());
         }else {
             board.put(key, new Box(" x "));
         }
@@ -61,6 +67,20 @@ public class Game {
             keyArray[1] = keyArray[1]+1;
         }
         createBoxes(keyArray, key,randFountain,randDrain);
+    }
+
+    public void boxKeyLinks(int[] keyArray, Box current){
+        String[] boxKeyLinks = new String[4];
+        //clockwise direction. 0 up, 1 right, 2 down, 3 left
+        boxKeyLinks[0] = keyArray[0]+","+(keyArray[1]-1);
+        boxKeyLinks[0] = (keyArray[0]+1)+","+keyArray[1];
+        boxKeyLinks[0] = keyArray[0]+","+keyArray[1];
+        boxKeyLinks[3] = (keyArray[0]-1)+","+(keyArray[1]+1);
+
+        current.setUp(board.get(boxKeyLinks[0]));
+        current.setRight(board.get(boxKeyLinks[1]));
+        current.setDown(board.get(boxKeyLinks[2]));
+        current.setLeft(board.get(boxKeyLinks[3]));
     }
 
     public void print(){
@@ -93,17 +113,6 @@ public class Game {
     }
 
     //To select a box writing its coordinate by keyboard, and set its type
-    public void selectBox(String coordinate){
-        String[] arrCoordinate = coordinate.split(",");
-        int[] intCoordinate = new int[2];
-        intCoordinate[0] = Integer.parseInt(arrCoordinate[0]);
-        intCoordinate[1] = Integer.parseInt(arrCoordinate[1]);
-
-        //to
-        //String finalCoordinate
-        pipesList.getSource();
-    }
-
     public void setBoxType(String coordinate, String opt){
         /**
          * 1: =
@@ -111,21 +120,22 @@ public class Game {
          * 3: o
          * 4: Delete, break links, setType:X
          * */
-        if (opt.equals("1")) {
-            System.out.println("opt 1");
-            board.get(coordinate).setType(" = ");
-        }else if (opt.equals("2")) {
-            System.out.println("opt 2");
-            board.get(coordinate).setType("|| ");
-        }else if (opt.equals("3")) {
-            System.out.println("opt 3");
-            board.get(coordinate).setType(" o ");
-        }else if(opt.equals("4")){
-            System.out.println("opt 4");
-            board.get(coordinate).setType(" x ");
-            System.out.println("The pipe was deleted");
-            //Delete node, break links
+        if(!board.get(coordinate).getType().equals(" F ") && !board.get(coordinate).getType().equals(" D ")){
+            if (opt.equals("1")) {
+                board.get(coordinate).setType(" = ");
+            }else if (opt.equals("2")) {
+                board.get(coordinate).setType("|| ");
+            }else if (opt.equals("3")) {
+                board.get(coordinate).setType(" o ");
+            }else if(opt.equals("4")){
+                board.get(coordinate).setType(" x ");
+                System.out.println("The pipe was deleted");
+                //Delete node, break links
+            }
+        } else {
+            System.out.println("You can't edit the Source or Drain");
         }
+
     }
     //GET
     public HashMap<String, Box> getBoard() {
