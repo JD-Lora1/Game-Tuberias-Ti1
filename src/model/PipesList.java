@@ -2,62 +2,54 @@ package model;
 
 public class PipesList {
 
-    private Box source; // Fuente F
-    private Box drain; // Drenaje D
-    private Box tail; //temporal tail
+    private Node source; // Fuente F
+    private Node drain; // Drenaje D
+    private Node tail; //temporal tail
 
-    public void addLast(Box box){
+    public void addLast(Node node){
         if(tail == null){
-            tail = box;
+            tail = node;
             source.setNext(tail);
             tail.setPrev(source);
         }else {
-            tail.setNext(box);
+            tail.setNext(node);
             tail.getNext().setPrev(tail);
-            tail = box;
+            tail = node;
         }
     }
-    public void delete(Box toDelete, Box current){
-        //No se puede eliminar fuente o drenaje, ni editarlas
-        if(source == toDelete || drain == toDelete){
-            System.out.println("You can't edit the Source or Drain");
-            return;
-        }else if(current == toDelete){
-            tail = current.getPrev();
-            tail.setNext(null);
-            current.setPrev(null);
-            return;
-        }else {
-            tail = current.getPrev();
-            tail.setNext(null);
-            current.setPrev(null);
-            delete(toDelete, current);
+
+    public void delete(Node toDelete/*, Node current*/){
+        tail = toDelete.getPrev();
+        tail.setNext(null);
+        toDelete.setPrev(null);
+        if (drain.getPrev()!= null){
+            drain.setPrev(null);
         }
     }
 
     //GET and SET
 
-    public Box getSource() {
+    public Node getSource() {
         return source;
     }
 
-    public void setSource(Box source) {
+    public void setSource(Node source) {
         this.source = source;
     }
 
-    public Box getDrain() {
+    public Node getDrain() {
         return drain;
     }
 
-    public void setDrain(Box drain) {
+    public void setDrain(Node drain) {
         this.drain = drain;
     }
 
-    public Box getTail() {
+    public Node getTail() {
         return tail;
     }
 
-    public void setTail(Box tail) {
+    public void setTail(Node tail) {
         this.tail = tail;
     }
 }

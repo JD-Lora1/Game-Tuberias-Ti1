@@ -3,45 +3,33 @@ import java.util.HashMap;
 
 public class Box {
 
-    private String type;
-    private Box next;
-    private Box prev;
+    private Node node;
     private Box up;
     private Box down;
     private Box right;
     private Box left;
 
     public Box(String type) {
-        this.type = type;
+        if(type.equals(" F ") || type.equals(" D ")){
+            node = new Node(type);
+        }
     }
 
     @Override
     public String toString() {
-        return " "+type+" ";
+        if (node!=null){
+            return " "+node.getType()+" ";
+        } else {
+            return "  x  ";
+        }
     }
 
-    public String getType() {
-        return type;
+    public Node getNode() {
+        return node;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Box getNext() {
-        return next;
-    }
-
-    public void setNext(Box next) {
-        this.next = next;
-    }
-
-    public Box getPrev() {
-        return prev;
-    }
-
-    public void setPrev(Box prev) {
-        this.prev = prev;
+    public void setNode(Node node) {
+        this.node = node;
     }
 
     public Box getUp() {

@@ -1,9 +1,8 @@
 package ui;
-import java.text.ParseException;
 import java.util.Scanner;
 import model.Control;
 
-public class Main {
+public class Main{
 
     private Control pipeMania;
     private Scanner sc;
@@ -24,7 +23,7 @@ public class Main {
     }
 
     public String options (){
-        System.out.println("\n1.New game\n2.Score \n3.Exit\n");
+        System.out.println("1.New game\n2.Score \n3.Exit\n");
         String select = sc.nextLine();
         return select;
     }
@@ -78,7 +77,11 @@ public class Main {
                         int yAxis = Integer.parseInt(sc.nextLine());
                         coordinate = coordinate+","+yAxis;
                         //Test if it exists
-                        pipeMania.getGame().getBoard().get(coordinate).getType();
+                        //TODO
+                        // How to do this like a nullpointerexception?
+                        if(pipeMania.getGame().getBoard().get(coordinate)==null) {
+                            throw new NullPointerException();
+                        }
                         cond = false;
                     }catch (NumberFormatException e){
                         System.out.println("Please provide a number");
@@ -93,7 +96,7 @@ public class Main {
                         " * 4: Delete pipe");
 
                 String type = sc.nextLine();
-                pipeMania.getGame().setBoxType(coordinate, type);
+                pipeMania.getGame().setBoxNodeType(coordinate, type);
                 break;
 
             case "2":

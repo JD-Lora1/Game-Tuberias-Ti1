@@ -32,26 +32,26 @@ public class Game {
             rand2[0] = random.nextInt(8);
             rand2[1] = random.nextInt(8);
         }
-        String randFountain = rand1[0]+","+rand1[1];
+        String randSource = rand1[0]+","+rand1[1];
         String randDrain = rand2[0]+","+rand2[1];
 
-        createBoxes(key, "", randFountain,randDrain);
+        createBoxes(key, "", randSource,randDrain);
     }
 
-    private void createBoxes(int[] keyArray, String key, String randFountain, String randDrain){
+    private void createBoxes(int[] keyArray, String key, String randSource, String randDrain){
         key = keyArray[0]+","+keyArray[1];
-        if(key.equals(randFountain)){
+        if(key.equals(randSource)){
             board.put(key, new Box(" F "));
-            pipesList.setSource(board.get(key));
+            pipesList.setSource(board.get(key).getNode());
 
             //Set box key links for source
-            boxKeyLinks(keyArray, pipesList.getSource());
+            boxKeyLinks(keyArray, board.get(key));
         }else if (key.equals(randDrain)){
             board.put(key, new Box(" D "));
-            pipesList.setDrain(board.get(key));
+            pipesList.setDrain(board.get(key).getNode());
 
             //Set box key links for drain
-            boxKeyLinks(keyArray, pipesList.getDrain());
+            boxKeyLinks(keyArray, board.get(key));
         }else {
             board.put(key, new Box(" x "));
         }
@@ -66,7 +66,7 @@ public class Game {
         }else{
             keyArray[1] = keyArray[1]+1;
         }
-        createBoxes(keyArray, key,randFountain,randDrain);
+        createBoxes(keyArray, key,randSource,randDrain);
     }
 
     public void boxKeyLinks(int[] keyArray, Box current){
@@ -113,28 +113,42 @@ public class Game {
     }
 
     //To select a box writing its coordinate by keyboard, and set its type
-    public void setBoxType(String coordinate, String opt){
+    public void setBoxNodeType(String coordinate, String opt){
         /**
          * 1: =
          * 2: ||
          * 3: o
          * 4: Delete, break links, setType:X
          * */
-        if(!board.get(coordinate).getType().equals(" F ") && !board.get(coordinate).getType().equals(" D ")){
+        if(board.get(coordinate).getNode()==null){
             if (opt.equals("1")) {
-                board.get(coordinate).setType(" = ");
+                board.get(coordinate).setNode(new Node(" = "));
+                pipesList.addLast(board.get(coordinate).getNode());
             }else if (opt.equals("2")) {
-                board.get(coordinate).setType("|| ");
+                board.get(coordinate).setNode(new Node("|| "));
+                pipesList.addLast(board.get(coordinate).getNode());
             }else if (opt.equals("3")) {
-                board.get(coordinate).setType(" o ");
+                board.get(coordinate).setNode(new Node(" o "));
+                pipesList.addLast(board.get(coordinate).getNode());
             }else if(opt.equals("4")){
-                board.get(coordinate).setType(" x ");
-                System.out.println("The pipe was deleted");
-                //Delete node, break links
+                System.out.println("There is no pipe to delete");
             }
-        } else {
-            System.out.println("You can't edit the Source or Drain");
+        } else if(!board.get(coordinate).getNode().getType().equals(" F ") && !board.get(coordinate).getNode().getType().equals(" D ")){
+            if (opt.equals("1")) {
+                board.get(coordinate).getNode().setType(" = ");
+            }else if (opt.equals("2")) {
+                board.get(coordinate).getNode().setType("|| ");
+            }else if (opt.equals("3")) {
+                board.get(coordinate).getNode().setType(" o ");
+            }else if(opt.equals("4")){
+                pipesList.delete(board.get(coordinate).getNode());
+                board.get(coordinate).setNode(null);
+                System.out.println("The pipe was deleted");
+            }
+        }else{
+            System.out.println("You can't edit the Source or the Drain");
         }
+
 
     }
     //GET
