@@ -1,6 +1,10 @@
 ## Integrantes:
-* Juan Diego Lora -
+* Juan Diego Lora
 * Jeison Lasprilla
+* Santiago Prado
+
+## Nota:
+El UML se encuentra en la carpeta /doc en formato de VisualParadigm
 
 ## DESCRIPCION
 Desarrollar una solución de software que permita simular un videojuego de tuberías, donde un usuario pueda editar las casillas de un tablero de 8x8, colocando o quitando tuberías entre la fuente y el drenaje, siguiendo ciertas reglas, si el agua llega de la fuente al drenaje, este gana. Así mismo se debe permitir al usuario que vea su puntaje obtenido.
