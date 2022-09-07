@@ -2,23 +2,23 @@ package model;
 
 public class PipesList {
 
-    private Node source; // Fuente F
-    private Node drain; // Drenaje D
-    private Node tail; //temporal tail
+    private NodeLL source; // Fuente F
+    private NodeLL drain; // Drenaje D
+    private NodeLL tail; //temporal tail
 
-    public void addLast(Node node){
+    public void addLast(NodeLL nodeLL){
         if(tail == null){
-            tail = node;
+            tail = nodeLL;
             source.setNext(tail);
             tail.setPrev(source);
         }else {
-            tail.setNext(node);
+            tail.setNext(nodeLL);
             tail.getNext().setPrev(tail);
-            tail = node;
+            tail = nodeLL;
         }
     }
 
-    public void delete(Node toDelete/*, Node current*/){
+    public void delete(NodeLL toDelete){
         tail = toDelete.getPrev();
         tail.setNext(null);
         toDelete.setPrev(null);
@@ -29,27 +29,27 @@ public class PipesList {
 
     //GET and SET
 
-    public Node getSource() {
+    public NodeLL getSource() {
         return source;
     }
 
-    public void setSource(Node source) {
+    public void setSource(NodeLL source) {
         this.source = source;
     }
 
-    public Node getDrain() {
+    public NodeLL getDrain() {
         return drain;
     }
 
-    public void setDrain(Node drain) {
+    public void setDrain(NodeLL drain) {
         this.drain = drain;
     }
 
-    public Node getTail() {
+    public NodeLL getTail() {
         return tail;
     }
 
-    public void setTail(Node tail) {
+    public void setTail(NodeLL tail) {
         this.tail = tail;
     }
 }

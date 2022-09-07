@@ -1,9 +1,8 @@
 package model;
-import java.util.HashMap;
 
 public class Box {
 
-    private Node node;
+    private NodeLL nodeLL;
     private Box up;
     private Box down;
     private Box right;
@@ -11,25 +10,25 @@ public class Box {
 
     public Box(String type) {
         if(type.equals(" F ") || type.equals(" D ")){
-            node = new Node(type);
+            nodeLL = new NodeLL(type);
         }
     }
 
     @Override
     public String toString() {
-        if (node!=null){
-            return " "+node.getType()+" ";
+        if (nodeLL !=null){
+            return " "+ nodeLL.getType()+" ";
         } else {
             return "  x  ";
         }
     }
 
-    public Node getNode() {
-        return node;
+    public NodeLL getNode() {
+        return nodeLL;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setNode(NodeLL nodeLL) {
+        this.nodeLL = nodeLL;
     }
 
     public Box getUp() {

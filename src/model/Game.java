@@ -13,6 +13,8 @@ public class Game {
     private Random random = new Random();
     private int[] rand1 = new int[2];
     private int[] rand2 = new int[2];
+    private String randSource = "";
+    private String randDrain = "";
 
     public Game(Player player) {
         this.player = player;
@@ -32,13 +34,15 @@ public class Game {
             rand2[0] = random.nextInt(8);
             rand2[1] = random.nextInt(8);
         }
-        String randSource = rand1[0]+","+rand1[1];
-        String randDrain = rand2[0]+","+rand2[1];
+        randSource = rand1[0]+","+rand1[1];
+        randDrain = rand2[0]+","+rand2[1];
 
         createBoxes(key, "", randSource,randDrain);
     }
 
     private void createBoxes(int[] keyArray, String key, String randSource, String randDrain){
+        this.randSource = randSource;
+        this.randDrain = randDrain;
         key = keyArray[0]+","+keyArray[1];
         if(key.equals(randSource)){
             board.put(key, new Box(" F "));
@@ -120,15 +124,33 @@ public class Game {
          * 3: o
          * 4: Delete, break links, setType:X
          * */
+        if(pipesList.getTail()==null){
+            //source
+            if(board.get(randSource).getUp()==board.get(coordinate) || board.get(randSource).getDown()==board.get(coordinate)){
+                if(board.get(coordinate).getNode()==null){
+                    if (opt.equals("1")) {
+                        System.out.println("You can't put this type of pipe here");
+                    }else if (opt.equals("2")) {
+                        board.get(coordinate).setNode(new NodeLL("|| "));
+                        pipesList.addLast(board.get(coordinate).getNode());
+                    }else if (opt.equals("3")) {
+                        System.out.println("You can't put this type of pipe here");
+                    }else if(opt.equals("4")){
+                        System.out.println("There is no pipe to delete");
+                    }
+                }
+            }
+        }
+
         if(board.get(coordinate).getNode()==null){
             if (opt.equals("1")) {
-                board.get(coordinate).setNode(new Node(" = "));
+                board.get(coordinate).setNode(new NodeLL(" = "));
                 pipesList.addLast(board.get(coordinate).getNode());
             }else if (opt.equals("2")) {
-                board.get(coordinate).setNode(new Node("|| "));
+                board.get(coordinate).setNode(new NodeLL("|| "));
                 pipesList.addLast(board.get(coordinate).getNode());
             }else if (opt.equals("3")) {
-                board.get(coordinate).setNode(new Node(" o "));
+                board.get(coordinate).setNode(new NodeLL(" o "));
                 pipesList.addLast(board.get(coordinate).getNode());
             }else if(opt.equals("4")){
                 System.out.println("There is no pipe to delete");

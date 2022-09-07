@@ -1,12 +1,12 @@
 package model;
 
-public class Node {
+public class NodeLL {
 
     private String type;
-    private Node next;
-    private Node prev;
+    private NodeLL next;
+    private NodeLL prev;
 
-    public Node(String type) {
+    public NodeLL(String type) {
         this.type = type;
     }
 
@@ -18,19 +18,19 @@ public class Node {
         this.type = type;
     }
 
-    public Node getNext() {
+    public NodeLL getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(NodeLL next) {
         this.next = next;
     }
 
-    public Node getPrev() {
+    public NodeLL getPrev() {
         return prev;
     }
 
-    public void setPrev(Node prev) {
+    public void setPrev(NodeLL prev) {
         this.prev = prev;
     }
 }

@@ -57,7 +57,7 @@ public class Main{
     }
 
     public String options2 (){
-        System.out.println("\n1.Lay pipe\n2.Simulate water flow \n3.Exit\n");
+        System.out.println("1.Lay pipe\n2.Simulate water flow \n3.Exit\n");
         String select2 = sc.nextLine();
         return select2;
     }
