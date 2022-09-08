@@ -129,7 +129,7 @@ public class Game {
             condition = board.get(randDrain).getLeft().equals(" = ");
         }else if(board.get(randDrain).getRight()!=null){
             condition = board.get(randDrain).getRight().equals(" = ");
-        }else if(board.get(randDrain).getUp().equals("|| ")){
+        }else if(board.get(randDrain).getUp()!=null){
             condition = board.get(randDrain).getUp().equals("|| ");
         } else if (board.get(randDrain).getDown()!=null) {
             condition = board.get(randDrain).getUp().equals("|| ");
