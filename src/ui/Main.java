@@ -34,20 +34,22 @@ public class Main{
             case "1":
                 System.out.println("Type your nickname");
                 String nickname = sc.nextLine();
+                long initialTime = System.currentTimeMillis();
                 pipeMania.startGame(nickname);
 
                 String select2;
                 do{
                     select2 = options2();
                     menu2(select2);
-                    pipeMania.toPrintGamge();
+                    pipeMania.toPrintGame();
+                    System.out.println(pipeMania.getGame().getNumPipes());
 
                 }while (!select2.equals("3"));
 
                 break;
 
             case "2":
-                //ABB
+                System.out.println("egedgvwr");
                 break;
 
             case "3":
@@ -100,7 +102,7 @@ public class Main{
                 break;
 
             case "2":
-                //ABB
+                pipeMania.getGame().waterFlow();
                 break;
 
             case "3":

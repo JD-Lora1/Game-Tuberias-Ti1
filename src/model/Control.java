@@ -1,5 +1,4 @@
 package model;
-import model.Game;
 
 public class Control {
 
@@ -14,7 +13,7 @@ public class Control {
     public Game getGame() {
         return game;
     }
-    public void toPrintGamge(){
+    public void toPrintGame(){
         game.print();
     }
 }

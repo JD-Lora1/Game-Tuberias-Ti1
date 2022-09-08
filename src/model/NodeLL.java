@@ -3,6 +3,7 @@ package model;
 public class NodeLL {
 
     private String type;
+    private String coordinate;
     private NodeLL next;
     private NodeLL prev;
 
@@ -32,5 +33,13 @@ public class NodeLL {
 
     public void setPrev(NodeLL prev) {
         this.prev = prev;
+    }
+
+    public String getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
     }
 }
