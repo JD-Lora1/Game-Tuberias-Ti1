@@ -8,9 +8,9 @@ public class Box {
     private Box right;
     private Box left;
 
-    public Box(String type) {
+    public Box(String type, String coordinate) {
         if(type.equals(" F ") || type.equals(" D ")){
-            nodeLL = new NodeLL(type);
+            nodeLL = new NodeLL(type, coordinate);
         }
     }
 

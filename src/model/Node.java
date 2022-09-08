@@ -1,20 +1,18 @@
 package model;
 
 public class Node {
-
-    public Node(String nickName,int score){
-        this.nickName=nickName;
-        this.score=score;
-
-    }
-
     private String nickName;
 
     private Node right;
 
     private Node left;
 
-    private int score;
+    private double score;
+
+    public Node(String nickName, double score){
+        this.nickName = nickName;
+        this.score = score;
+    }
 
     public String getNickName() {
         return nickName;
@@ -40,11 +38,11 @@ public class Node {
         this.left = left;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

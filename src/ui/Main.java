@@ -1,13 +1,12 @@
 package ui;
 import java.util.Scanner;
 import model.Control;
+import model.Scoreboard;
 
 public class Main{
 
     private Control pipeMania;
     private Scanner sc;
-    long initialTime;
-    long finalTime;
 
     public Main() {
         pipeMania = new Control();
@@ -41,16 +40,15 @@ public class Main{
                 String select2;
                 do{
                     select2 = options2();
-                    menu2(select2);
+                    select = menu2(select2);
                     pipeMania.toPrintGame();
-                    System.out.println(pipeMania.getGame().getNumPipes());
 
                 }while (!select2.equals("3"));
 
                 break;
 
             case "2":
-                System.out.println("egedgvwr");
+                pipeMania.getScoreboard().inOrder();
                 break;
 
             case "3":
@@ -60,15 +58,13 @@ public class Main{
     }
 
     public String options2 (){
-        initialTime = System.currentTimeMillis();
         System.out.println("1.Lay pipe\n2.Simulate water flow \n3.Exit\n");
         String select2 = sc.nextLine();
         return select2;
     }
 
-    public void menu2(String select2){
+    public String menu2(String select2){
         switch (select2){
-
             case "1":
                 boolean cond = true;
                 String coordinate="";
@@ -101,15 +97,17 @@ public class Main{
                 break;
 
             case "2":
-                pipeMania.getGame().waterFlow();
-                long lastTime = System.currentTimeMillis();
-                finalTime = ((initialTime-lastTime)/1000);
+                select2 = pipeMania.getGame().waterFlow("2");
+                if (select2.equals("3")){
+                    pipeMania.addNewScore();
+                }
                 break;
 
             case "3":
                 System.out.println("Bye!");
                 break;
         }
+        return select2;
     }
 
 }

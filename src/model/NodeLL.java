@@ -7,8 +7,9 @@ public class NodeLL {
     private NodeLL next;
     private NodeLL prev;
 
-    public NodeLL(String type) {
+    public NodeLL(String type, String coordinate) {
         this.type = type;
+        this.coordinate = coordinate;
     }
 
     public String getType() {

@@ -17,6 +17,9 @@ public class Game {
     private String randDrain = "";
     private String currentTail = "";
     private int numPipes = 0;
+    long initialTime;
+    long finalTime;
+    long scoreTime;
 
     public Game(Player player) {
         this.player = player;
@@ -25,6 +28,7 @@ public class Game {
     }
 
     public void createBoxes() {
+        initialTime = System.currentTimeMillis();
         int[] key = new int[2];
         key[0] = 0;
         key[1] = 0;
@@ -48,19 +52,19 @@ public class Game {
         this.randDrain = randDrain;
         key = keyArray[0] + "," + keyArray[1];
         if (key.equals(randSource)) {
-            board.put(key, new Box(" F "));
+            board.put(key, new Box(" F ",randSource));
             pipesList.setSource(board.get(key).getNode());
 
             //Set box key links for source
             boxKeyLinks(keyArray, board.get(key));
         } else if (key.equals(randDrain)) {
-            board.put(key, new Box(" D "));
+            board.put(key, new Box(" D ",randDrain));
             pipesList.setDrain(board.get(key).getNode());
 
             //Set box key links for drain
             boxKeyLinks(keyArray, board.get(key));
         } else {
-            board.put(key, new Box(" x "));
+            board.put(key, new Box(" x ",key));
         }
 
         if (keyArray[0] == 7 && keyArray[1] == 7) {
@@ -123,39 +127,47 @@ public class Game {
         print(keyArray, key);
     }
     //WaterFlow
-    public void waterFlow(){
+    public String waterFlow(String opt){
         boolean condition = false;
-        /*if(board.get(randDrain).getLeft()!=null){
-            condition = board.get(randDrain).getLeft().equals(" = ");
-        }else if(board.get(randDrain).getRight()!=null){
-            condition = board.get(randDrain).getRight().equals(" = ");
-        }else if(board.get(randDrain).getUp()!=null){
-            condition = board.get(randDrain).getUp().equals("|| ");
-        } else if (board.get(randDrain).getDown()!=null) {
-            condition = board.get(randDrain).getUp().equals("|| ");
-        }*/
+        boolean finalCondition = false;
+        // hacer condicion de nulpointerexcpetion
         if(board.get(currentTail).getLeft()!=null){
-            condition = board.get(currentTail).getLeft().equals(" = ");
-        }else if(board.get(currentTail).getRight()!=null){
-            condition = board.get(currentTail).getRight().equals(" = ");
-        }else if(board.get(currentTail).getUp()!=null){
-            condition = board.get(currentTail).getUp().equals("|| ");
-        } else if (board.get(currentTail).getDown()!=null) {
-            condition = board.get(currentTail).getUp().equals("|| ");
+            System.out.println("//1");
+            condition = board.get(currentTail).getNode().getType().equals(" = ") && board.get(currentTail).getLeft()==board.get(randDrain);
+            if(condition)
+                finalCondition = true;
         }
-        if(condition){
+        if(board.get(currentTail).getRight()!=null){
+            System.out.println("//2");
+            condition = board.get(currentTail).getNode().getType().equals(" = ") && board.get(currentTail).getRight()==board.get(randDrain);
+            if(condition)
+                finalCondition = true;
+        }
+        if(board.get(currentTail).getUp()!=null){
+            System.out.println("//3");
+            condition = board.get(currentTail).getNode().getType().equals("|| ") && board.get(currentTail).getUp()==board.get(randDrain);
+            if(condition)
+                finalCondition = true;
+        }
+        if (board.get(currentTail).getDown()!=null) {
+            System.out.println("//4");
+            condition = board.get(currentTail).getNode().getType().equals("|| ") && board.get(currentTail).getDown()==board.get(randDrain);
+            if(condition)
+                finalCondition = true;
+        }
+        if(finalCondition){
             pipesList.getTail().setNext(pipesList.getDrain());
             pipesList.setTail(pipesList.getDrain());
             currentTail = randDrain;
-            System.out.println("Condition: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
-        }
-        if(pipesList.getTail()==pipesList.getDrain()){
-            System.out.println("IF1: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
-            System.out.println("Ganaste");
+            System.out.println("Ganaste!!");
+            finalTime = System.currentTimeMillis();
+            scoreTime = (finalTime-initialTime)/1000;
+            System.out.println("Tu puntaje: "+getScore());
+            opt = "3";
         }else {
-            System.out.println("ELSE: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
             System.out.println("Perdiste");
         }
+        return opt;
     }
 
     //To select a box writing its coordinate by keyboard, and set its type
@@ -179,11 +191,7 @@ public class Game {
                 if (opt.equals("1") || opt.equals("3")) {
                     System.out.println("You can't put this type of pipe here");
                 } else if (opt.equals("2")) {
-                    currentTail = coordinate;
-                    boxKeyLinks(key, board.get(currentTail));
-                    board.get(coordinate).setNode(new NodeLL("|| "));
-                    pipesList.addLast(board.get(coordinate).getNode());
-                    numPipes+=1;
+                    setNodeType(key,coordinate, "|| ", "1");
                 } else if (opt.equals("4")) {
                     System.out.println("There is no pipe to delete");
                 }
@@ -191,11 +199,7 @@ public class Game {
             //Right Left, Source
             else if (board.get(randSource).getRight() == board.get(coordinate) || board.get(randSource).getLeft() == board.get(coordinate)) {
                 if (opt.equals("1")) {
-                    currentTail = coordinate;
-                    boxKeyLinks(key, board.get(currentTail));
-                    board.get(coordinate).setNode(new NodeLL(" = "));
-                    pipesList.addLast(board.get(coordinate).getNode());
-                    numPipes+=1;
+                    setNodeType(key,coordinate, " = ", "1");
                 } else if (opt.equals("2") || opt.equals("3")) {
                     System.out.println("You can't put this type of pipe here");
                 } else if (opt.equals("4")) {
@@ -206,19 +210,20 @@ public class Game {
             //Another position != surce nexts for Left and Right
             else if (board.get(currentTail).getRight() == board.get(coordinate) || board.get(currentTail).getLeft() == board.get(coordinate)) {
                 if (pipesList.getTail().getType().equals(" o ")) {
-                    boolean condition;
-                    if(board.get(currentTail).getDown()==null){
-                        condition = board.get(currentTail).getUp().getNode().getType().equals("|| ");
-                    }else {
-                        condition = board.get(currentTail).getDown().getNode().getType().equals("|| ");
+                    boolean condition = false;
+                    if(board.get(currentTail).getDown()!=null){
+                        if(board.get(currentTail).getDown().getNode()==null){
+                            condition = board.get(currentTail).getUp().getNode().getType().equals("|| ");
+                        }
+                    }
+                    if(board.get(currentTail).getUp()!=null){
+                        if(board.get(currentTail).getUp().getNode()==null){
+                            condition = board.get(currentTail).getDown().getNode().getType().equals("|| ");
+                        }
                     }
                     if (condition) {
                         if (opt.equals("1")) {
-                            currentTail = coordinate;
-                            boxKeyLinks(key, board.get(currentTail));
-                            board.get(coordinate).setNode(new NodeLL(" = "));
-                            pipesList.addLast(board.get(coordinate).getNode());
-                            numPipes+=1;
+                            setNodeType(key,coordinate, " = ", "1");
                         } else if (opt.equals("2") || opt.equals("3")) {
                             System.out.println("You can't put this type of pipe here");
                         } else if (opt.equals("4")) {
@@ -229,19 +234,11 @@ public class Game {
                     System.out.println("You can't put any type of pipe here. There is a vertical pipe previosly");
                 } else if (pipesList.getTail().getType().equals(" = ")) {
                     if (opt.equals("1")) {
-                        currentTail = coordinate;
-                        boxKeyLinks(key, board.get(currentTail));
-                        board.get(coordinate).setNode(new NodeLL(" = "));
-                        pipesList.addLast(board.get(coordinate).getNode());
-                        numPipes += 1;
+                        setNodeType(key,coordinate, " = ", "1");
                     } else if (opt.equals("2")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("3")) {
-                        currentTail = coordinate;
-                        boxKeyLinks(key, board.get(currentTail));
-                        board.get(coordinate).setNode(new NodeLL(" o "));
-                        pipesList.addLast(board.get(coordinate).getNode());
-                        numPipes += 1;
+                        setNodeType(key,coordinate, " o ", "1");
                     } else if (opt.equals("4")) {
                         System.out.println("There is no pipe to delete");
                     }
@@ -250,21 +247,23 @@ public class Game {
             //Another position != source nexts for Down and Up
             else if (board.get(currentTail).getDown() == board.get(coordinate) || board.get(currentTail).getUp() == board.get(coordinate)) {
                 if (pipesList.getTail().getType().equals(" o ")) {
-                    boolean condition;
-                    if(board.get(currentTail).getRight()==null){
-                        condition = board.get(currentTail).getLeft().getNode().getType().equals(" = ");
-                    }else {
-                        condition = board.get(currentTail).getRight().getNode().getType().equals(" = ");
+                    boolean condition = false;
+                    if(board.get(currentTail).getRight()!=null){
+                        if(board.get(currentTail).getRight().getNode()==null){
+                            condition = board.get(currentTail).getLeft().getNode().getType().equals(" = ");
+                        }
                     }
+                    if(board.get(currentTail).getLeft()!=null){
+                        if(board.get(currentTail).getLeft().getNode()==null){
+                            condition = board.get(currentTail).getRight().getNode().getType().equals(" = ");
+                        }
+                    }
+
                     if (condition) {
                         if (opt.equals("1") || opt.equals("3")) {
                             System.out.println("You can't put this type of pipe here");
                         } else if (opt.equals("2")) {
-                            currentTail = coordinate;
-                            boxKeyLinks(key, board.get(currentTail));
-                            board.get(coordinate).setNode(new NodeLL("|| "));
-                            pipesList.addLast(board.get(coordinate).getNode());
-                            numPipes+=1;
+                            setNodeType(key,coordinate, "|| ", "1");
                         } else if (opt.equals("4")) {
                             System.out.println("There is no pipe to delete");
                         }
@@ -275,17 +274,9 @@ public class Game {
                     if (opt.equals("1")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("2")) {
-                        currentTail = coordinate;
-                        boxKeyLinks(key, board.get(currentTail));
-                        board.get(coordinate).setNode(new NodeLL("|| "));
-                        pipesList.addLast(board.get(coordinate).getNode());
-                        numPipes+=1;
+                        setNodeType(key,coordinate, "|| ", "1");
                     } else if (opt.equals("3")) {
-                        currentTail = coordinate;
-                        boxKeyLinks(key, board.get(currentTail));
-                        board.get(coordinate).setNode(new NodeLL(" o "));
-                        pipesList.addLast(board.get(coordinate).getNode());
-                        numPipes+=1;
+                        setNodeType(key,coordinate, " o ", "1");
                     } else if (opt.equals("4")) {
                         System.out.println("There is no pipe to delete");
                     }
@@ -303,6 +294,7 @@ public class Game {
         key[0] = Integer.parseInt(keyStr[0]);
         key[1] = Integer.parseInt(keyStr[1]);
         boxKeyLinks(key, board.get(currentTail));
+
         if (!board.get(coordinate).getNode().getType().equals(" F ") && !board.get(coordinate).getNode().getType().equals(" D ")) {
             if (board.get(randSource).getUp() == board.get(coordinate) || board.get(randSource).getDown() == board.get(coordinate)) {
                 if (opt.equals("1") || opt.equals("3")) {
@@ -310,9 +302,7 @@ public class Game {
                 } else if (opt.equals("2")) {
                     board.get(coordinate).getNode().setType("|| ");
                 } else if (opt.equals("4")) {
-                    pipesList.delete(board.get(coordinate).getNode());
-                    board.get(coordinate).setNode(null);
-                    System.out.println("The pipe was deleted");
+                    deleteNode(coordinate);
                 }
             }
             //Right Left, Source
@@ -323,20 +313,23 @@ public class Game {
                 } else if (opt.equals("2") || opt.equals("3")) {
                     System.out.println("You can't put this type of pipe here");
                 } else if (opt.equals("4")) {
-                    pipesList.delete(board.get(coordinate).getNode());
-                    board.get(coordinate).setNode(null);
-                    System.out.println("The pipe was deleted");
+                    deleteNode(coordinate);
                 }
 
             }
             //Another position != surce nexts for Left and Right
             else if (board.get(currentTail).getRight() == board.get(coordinate) || board.get(currentTail).getLeft() == board.get(coordinate)) {
                 if (pipesList.getTail().getType().equals(" o ")) {
-                    boolean condition;
-                    if(board.get(currentTail).getDown()==null){
-                        condition = board.get(currentTail).getUp().getNode().getType().equals("|| ");
-                    }else {
-                        condition = board.get(currentTail).getDown().getNode().getType().equals("|| ");
+                    boolean condition = false;
+                    if(board.get(currentTail).getDown()!=null){
+                        if(board.get(currentTail).getDown().getNode()==null){
+                            condition = board.get(currentTail).getUp().getNode().getType().equals("|| ");
+                        }
+                    }
+                    if(board.get(currentTail).getUp()!=null){
+                        if(board.get(currentTail).getUp().getNode()==null){
+                            condition = board.get(currentTail).getDown().getNode().getType().equals("|| ");
+                        }
                     }
                     if (condition) {
                         //nothing happens if it is the same(opt3 = " o ")
@@ -345,9 +338,7 @@ public class Game {
                         } else if (opt.equals("2")) {
                             System.out.println("You can't put this type of pipe here");
                         } else if (opt.equals("4")) {
-                            pipesList.delete(board.get(coordinate).getNode());
-                            board.get(coordinate).setNode(null);
-                            System.out.println("The pipe was deleted");
+                            deleteNode(coordinate);
                         }
                     }
                 } else if (pipesList.getTail().getType().equals("|| ")) {
@@ -365,20 +356,23 @@ public class Game {
                             board.get(coordinate).getNode().setType(" = ");
                         }
                     } else if (opt.equals("4")) {
-                        pipesList.delete(board.get(coordinate).getNode());
-                        board.get(coordinate).setNode(null);
-                        System.out.println("The pipe was deleted");
+                        deleteNode(coordinate);
                     }
                 }
             }
             //Another position != source nexts for Down and Up
             else if (board.get(currentTail).getDown() == board.get(coordinate) || board.get(currentTail).getUp() == board.get(coordinate)) {
                 if (pipesList.getTail().getType().equals(" o ")) {
-                    boolean condition;
-                    if(board.get(currentTail).getRight()==null){
-                        condition = board.get(currentTail).getLeft().getNode().getType().equals(" = ");
-                    }else {
-                        condition = board.get(currentTail).getRight().getNode().getType().equals(" = ");
+                    boolean condition = false;
+                    if(board.get(currentTail).getRight()!=null){
+                        if(board.get(currentTail).getRight().getNode()==null){
+                            condition = board.get(currentTail).getLeft().getNode().getType().equals(" = ");
+                        }
+                    }
+                    if(board.get(currentTail).getLeft()!=null){
+                        if(board.get(currentTail).getLeft().getNode()==null){
+                            condition = board.get(currentTail).getRight().getNode().getType().equals(" = ");
+                        }
                     }
                     if (condition) {
                         if (opt.equals("1")) {
@@ -393,9 +387,7 @@ public class Game {
                                 board.get(coordinate).getNode().setType(" o ");
                             }
                         } else if (opt.equals("4")) {
-                            pipesList.delete(board.get(coordinate).getNode());
-                            board.get(coordinate).setNode(null);
-                            System.out.println("The pipe was deleted");
+                            deleteNode(coordinate);
                         }
                     }
                 } else if (pipesList.getTail().getType().equals(" = ")) {
@@ -413,10 +405,7 @@ public class Game {
                             board.get(coordinate).getNode().setType(" o ");
                         }
                     } else if (opt.equals("4")) {
-                        pipesList.delete(board.get(coordinate).getNode());
-                        board.get(coordinate).setNode(null);
-                        //currentTail = pipesList.getTail().getType();//
-                        System.out.println("The pipe was deleted");
+                        deleteNode(coordinate);
                     }
                 }
             }
@@ -429,6 +418,21 @@ public class Game {
             System.out.println("You can't edit the Source or the Drain");
         }
     }
+
+    public void setNodeType(int[] key, String coordinate, String type, String opt){
+        currentTail = coordinate;
+        boxKeyLinks(key, board.get(currentTail));
+        board.get(coordinate).setNode(new NodeLL(type,coordinate));
+        pipesList.addLast(board.get(coordinate).getNode());
+        numPipes+=1;
+
+    }
+    public void deleteNode(String coordinate){
+        pipesList.delete(board.get(coordinate).getNode());
+        board.get(coordinate).setNode(null);
+        currentTail = pipesList.getTail().getCoordinate();
+        System.out.println("The pipe was deleted");
+    }
     public HashMap<String, Box> getBoard() {
         return board;
     }
@@ -436,9 +440,14 @@ public class Game {
     public int getNumPipes() {
         return numPipes;
     }
+    public double getScore(){
+        score = numPipes*100 - (60-scoreTime)*10;
+        return score;
+    }
 
-    /*public int getScore(){
-        score = numPipes * 100 - (60 - finalTime) * 10;
-        return (int) score;
-    }*/
+    public String getPlayerName(){
+        return player.getName();
+    }
+
+
 }
