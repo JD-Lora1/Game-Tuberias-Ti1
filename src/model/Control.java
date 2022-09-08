@@ -10,6 +10,8 @@ public class Control {
         game.print();
     }
 
+
+
     public Game getGame() {
         return game;
     }

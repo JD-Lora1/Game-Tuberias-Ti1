@@ -6,6 +6,8 @@ public class Main{
 
     private Control pipeMania;
     private Scanner sc;
+    long initialTime;
+    long finalTime;
 
     public Main() {
         pipeMania = new Control();
@@ -34,7 +36,6 @@ public class Main{
             case "1":
                 System.out.println("Type your nickname");
                 String nickname = sc.nextLine();
-                long initialTime = System.currentTimeMillis();
                 pipeMania.startGame(nickname);
 
                 String select2;
@@ -59,6 +60,7 @@ public class Main{
     }
 
     public String options2 (){
+        initialTime = System.currentTimeMillis();
         System.out.println("1.Lay pipe\n2.Simulate water flow \n3.Exit\n");
         String select2 = sc.nextLine();
         return select2;
@@ -78,9 +80,6 @@ public class Main{
                         System.out.println("Please enter the column (eg:0)");
                         int yAxis = Integer.parseInt(sc.nextLine());
                         coordinate = coordinate+","+yAxis;
-                        //Test if it exists
-                        //TODO
-                        // How to do this like a nullpointerexception?
                         if(pipeMania.getGame().getBoard().get(coordinate)==null) {
                             throw new NullPointerException();
                         }
@@ -103,6 +102,8 @@ public class Main{
 
             case "2":
                 pipeMania.getGame().waterFlow();
+                long lastTime = System.currentTimeMillis();
+                finalTime = ((initialTime-lastTime)/1000);
                 break;
 
             case "3":

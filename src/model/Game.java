@@ -125,7 +125,7 @@ public class Game {
     //WaterFlow
     public void waterFlow(){
         boolean condition = false;
-        if(board.get(randDrain).getLeft()!=null){
+        /*if(board.get(randDrain).getLeft()!=null){
             condition = board.get(randDrain).getLeft().equals(" = ");
         }else if(board.get(randDrain).getRight()!=null){
             condition = board.get(randDrain).getRight().equals(" = ");
@@ -133,15 +133,27 @@ public class Game {
             condition = board.get(randDrain).getUp().equals("|| ");
         } else if (board.get(randDrain).getDown()!=null) {
             condition = board.get(randDrain).getUp().equals("|| ");
+        }*/
+        if(board.get(currentTail).getLeft()!=null){
+            condition = board.get(currentTail).getLeft().equals(" = ");
+        }else if(board.get(currentTail).getRight()!=null){
+            condition = board.get(currentTail).getRight().equals(" = ");
+        }else if(board.get(currentTail).getUp()!=null){
+            condition = board.get(currentTail).getUp().equals("|| ");
+        } else if (board.get(currentTail).getDown()!=null) {
+            condition = board.get(currentTail).getUp().equals("|| ");
         }
         if(condition){
-            //boxKeyLinks(key, board.get(currentTail));
-            board.get(currentTail).getNode().setNext(pipesList.getDrain());
+            pipesList.getTail().setNext(pipesList.getDrain());
             pipesList.setTail(pipesList.getDrain());
+            currentTail = randDrain;
+            System.out.println("Condition: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
         }
         if(pipesList.getTail()==pipesList.getDrain()){
+            System.out.println("IF1: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
             System.out.println("Ganaste");
         }else {
+            System.out.println("ELSE: Drain"+pipesList.getDrain()+", Tail:"+pipesList.getTail()+", CurrTail: "+currentTail);
             System.out.println("Perdiste");
         }
     }
@@ -425,4 +437,8 @@ public class Game {
         return numPipes;
     }
 
+    /*public int getScore(){
+        score = numPipes * 100 - (60 - finalTime) * 10;
+        return (int) score;
+    }*/
 }
