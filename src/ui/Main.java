@@ -40,7 +40,7 @@ public class Main{
                 String select2;
                 do{
                     select2 = options2();
-                    select = menu2(select2);
+                    select2 = menu2(select2);
                     pipeMania.toPrintGame();
 
                 }while (!select2.equals("3"));

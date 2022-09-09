@@ -12,6 +12,7 @@ public class PipesList {
             source.setNext(tail);
             tail.setPrev(source);
         }else {
+            //TODO revisar ir works
             tail.setNext(nodeLL);
             tail.getNext().setPrev(tail);
             tail = nodeLL;
