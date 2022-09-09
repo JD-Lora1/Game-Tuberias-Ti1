@@ -2,29 +2,29 @@ package model;
 
 public class Scoreboard {
 
-    private Node root;
+    private NodeABB root;
 
-    public void addNode(Node node){
+    public void addNode(NodeABB nodeABB){
         if(this.root ==null){
-            this.root =node;
+            this.root = nodeABB;
         }else{
-            addNode(node,root);
+            addNode(nodeABB,root);
         }
     }
 
-    private void addNode(Node node,Node current){
-        if(node.getScore() < current.getScore()){
+    private void addNode(NodeABB nodeABB, NodeABB current){
+        if(nodeABB.getScore() < current.getScore()){
             if(current.getLeft() != null){
-                addNode(node,current.getLeft());
+                addNode(nodeABB,current.getLeft());
             }else{
-                current.setLeft(node);
+                current.setLeft(nodeABB);
             }
         }
-        if(node.getScore() > current.getScore()){
+        if(nodeABB.getScore() > current.getScore()){
             if(current.getRight() != null){
-                addNode(node,current.getRight());
+                addNode(nodeABB,current.getRight());
             } else{
-                current.setRight(node);
+                current.setRight(nodeABB);
             }
         }
 
@@ -34,7 +34,7 @@ public class Scoreboard {
         inOrder(root);
     }
 
-    private void inOrder(Node current){
+    private void inOrder(NodeABB current){
         if(current==null){
             return;
         }

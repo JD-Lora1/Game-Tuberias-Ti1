@@ -30,6 +30,6 @@ public class Control {
     }
 
     public void addNewScore(){
-        scoreboard.addNode(new Node(game.getPlayerName(), game.getScore()));
+        scoreboard.addNode(new NodeABB(game.getPlayerName(), game.getScore()));
     }
 }

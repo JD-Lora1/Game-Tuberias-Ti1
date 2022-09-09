@@ -1,15 +1,15 @@
 package model;
 
-public class Node {
+public class NodeABB {
     private String nickName;
 
-    private Node right;
+    private NodeABB right;
 
-    private Node left;
+    private NodeABB left;
 
     private double score;
 
-    public Node(String nickName, double score){
+    public NodeABB(String nickName, double score){
         this.nickName = nickName;
         this.score = score;
     }
@@ -22,19 +22,19 @@ public class Node {
         this.nickName = nickName;
     }
 
-    public Node getRight() {
+    public NodeABB getRight() {
         return right;
     }
 
-    public void setRight(Node right) {
+    public void setRight(NodeABB right) {
         this.right = right;
     }
 
-    public Node getLeft() {
+    public NodeABB getLeft() {
         return left;
     }
 
-    public void setLeft(Node left) {
+    public void setLeft(NodeABB left) {
         this.left = left;
     }
 
