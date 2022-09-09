@@ -297,12 +297,11 @@ public class Game {
     public void setBoxFilledNodeType(String coordinate, String opt){
         if (opt.equals("4")){
             pipesList.delete(board.get(coordinate).getNodeLL());
-            System.out.println("Size: "+pipesList.getCoordinatesToDelete().size());
             for (int i = 0; i<pipesList.getCoordinatesToDelete().size();i++){
-                System.out.println("itertation: "+i);
                 board.get(pipesList.getCoordinatesToDelete().get(i)).setNodeLL(null);
             }
-            System.out.println("The pipe was deleted");
+            actualizeCurrentTail();
+            System.out.println("The pipes were deleted");
         }else {
             System.out.println("You can't edit this pipe");
             System.out.println("If you wanna change it, first delete it(to delete all of his nexts pipes)");
