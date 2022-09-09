@@ -297,7 +297,9 @@ public class Game {
     public void setBoxFilledNodeType(String coordinate, String opt){
         if (opt.equals("4")){
             pipesList.delete(board.get(coordinate).getNodeLL());
+            System.out.println("Size: "+pipesList.getCoordinatesToDelete().size());
             for (int i = 0; i<pipesList.getCoordinatesToDelete().size();i++){
+                System.out.println("itertation: "+i);
                 board.get(pipesList.getCoordinatesToDelete().get(i)).setNodeLL(null);
             }
             System.out.println("The pipe was deleted");
@@ -305,13 +307,6 @@ public class Game {
             System.out.println("You can't edit this pipe");
             System.out.println("If you wanna change it, first delete it(to delete all of his nexts pipes)");
         }
-        /*if (board.get(coordinate) != board.get(randDrain) && board.get(coordinate) != board.get(randSource)) {
-            //could be delete only the type. For dont delete the links
-            deleteNode(coordinate);
-            setBoxNodeType(coordinate, opt);
-        }else {
-            System.out.println("You can't edit the Source or the Drain");
-        }*/
     }
 
     public void actualizeCurrentTail(){

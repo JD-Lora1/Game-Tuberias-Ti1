@@ -38,7 +38,7 @@ public class PipesList {
         current.setNext(null);
         current.setPrev(null);
 
-        delete(current.getNext(), currentNext);
+        delete(currentNext, currentNext);
     }
 
     //GET and SET
