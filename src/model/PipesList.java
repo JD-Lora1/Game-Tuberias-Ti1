@@ -4,10 +4,10 @@ public class PipesList {
 
     private NodeLL source; // Fuente F
     private NodeLL drain; // Drenaje D
-    private NodeLL tail; //temporal tail
+    private NodeLL tail; // Temporal tail
 
     public void addLast(NodeLL nodeLL){
-        if(tail == null){
+        if(tail == source){
             tail = nodeLL;
             source.setNext(tail);
             tail.setPrev(source);

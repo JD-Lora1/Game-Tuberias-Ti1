@@ -12,7 +12,6 @@ public class Control {
     public void startGame(String nickname){
         game = new Game(new Player(nickname));
         game.createBoxes();
-        game.print();
     }
 
     public Game getGame() {

@@ -39,9 +39,9 @@ public class Main{
 
                 String select2;
                 do{
-                    select2 = options2();
-                    select2 = menu2(select2);
+                    //select2 = options2();
                     pipeMania.toPrintGame();
+                    select2 = menu2(options2());
 
                 }while (!select2.equals("3"));
 

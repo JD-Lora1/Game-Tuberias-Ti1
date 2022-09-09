@@ -39,7 +39,7 @@ public class Scoreboard {
             return;
         }
         inOrder(current.getRight());
-        System.out.println(current.getScore());
+        System.out.println(current.toString());
         inOrder(current.getLeft());
     }
 

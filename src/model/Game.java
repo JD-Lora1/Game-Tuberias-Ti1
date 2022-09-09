@@ -57,6 +57,7 @@ public class Game {
         if (key.equals(randSource)) {
             board.put(key, new Box(" F ",randSource));
             pipesList.setSource(board.get(key).getNode());
+            pipesList.setTail(board.get(key).getNode());
 
             //Set box key links for source
             boxKeyLinks(keyArray, board.get(key));
@@ -102,6 +103,7 @@ public class Game {
     }
 
     public void print() {
+        System.out.println("--CurrentTail: "+currentTail);
         System.out.println("\n    0    1    2    3    4    5    6    7");
         System.out.print(" " + 0);
         int[] key = new int[2];
@@ -135,30 +137,28 @@ public class Game {
         boolean finalCondition = false;
         // hacer condicion de nulpointerexcpetion
         if(board.get(currentTail).getLeft()!=null){
-            System.out.println("//1");
             condition = board.get(currentTail).getNode().getType().equals(HORIZONTAL_P) && board.get(currentTail).getLeft()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if(board.get(currentTail).getRight()!=null){
-            System.out.println("//2");
             condition = board.get(currentTail).getNode().getType().equals(HORIZONTAL_P) && board.get(currentTail).getRight()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if(board.get(currentTail).getUp()!=null){
-            System.out.println("//3");
             condition = board.get(currentTail).getNode().getType().equals(VERTICAL_P) && board.get(currentTail).getUp()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if (board.get(currentTail).getDown()!=null) {
-            System.out.println("//4");
             condition = board.get(currentTail).getNode().getType().equals(VERTICAL_P) && board.get(currentTail).getDown()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if(finalCondition){
+            //TODO
+            // Create WaterFlow -method on PipeList, which do current.getNext.
             pipesList.getDrain().setPrev(pipesList.getTail());
             pipesList.getTail().setNext(pipesList.getDrain());
             pipesList.setTail(pipesList.getDrain());
@@ -206,9 +206,8 @@ public class Game {
                             condition = board.get(currentTail).getUp().getNode().getType().equals(VERTICAL_P);
                         }
                     }
-
                 }
-                // Here would ejecute CONDITION {if (condition)} Line +-223
+                // Here would ejecute CONDITION {if (condition)} Line +-222
                 else if (pipesList.getTail().getType().equals(VERTICAL_P)) {
                     System.out.println("You can't put any type of pipe here. There is a vertical pipe previosly");
                 } else if (pipesList.getTail().getType().equals(HORIZONTAL_P)) {
@@ -273,16 +272,18 @@ public class Game {
                         System.out.println("There is no pipe to delete");
                     }
                 }
+            }else {
+                System.out.println("You should start connecting pipes from Source(F)");
             }
         }else {
             setBoxFilledNodeType(coordinate, opt);
         }
-        actualizeCurrentTail(coordinate);
     }
 
     public void setBoxFilledNodeType(String coordinate, String opt){
         //Delete node
         if (board.get(coordinate) != board.get(randDrain) && board.get(coordinate) != board.get(randSource)) {
+            //could be delete only the type. For dont delete the links
             deleteNode(coordinate);
             setBoxNodeType(coordinate, opt);
         }else {
@@ -290,18 +291,14 @@ public class Game {
         }
     }
     public void actualizeCurrentTail(String coordinate){
-        if(pipesList.getTail()!=null){
-            currentTail = pipesList.getTail().getCoordinate();
-        }else {
-            currentTail = coordinate;
-        }
+        currentTail = pipesList.getTail().getCoordinate();
     }
 
     public void setNodeType(int[] key, String coordinate, String type){
-        actualizeCurrentTail(coordinate);
-        boxKeyLinks(key, board.get(currentTail));
+        boxKeyLinks(key, board.get(coordinate));
         board.get(coordinate).setNode(new NodeLL(type,coordinate));
         pipesList.addLast(board.get(coordinate).getNode());
+        actualizeCurrentTail(coordinate);
         numPipes+=1;
     }
     public void deleteNode(String coordinate){
