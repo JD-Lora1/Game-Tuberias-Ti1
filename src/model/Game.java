@@ -16,9 +16,9 @@ public class Game {
     private String randSource = "";
     private String randDrain = "";
     private String currentTail = "";
-    private static final String opt1 = " = ";
-    private static final String opt2 = "|| ";
-    private static final String opt3 = " o ";
+    private static final String HORIZONTAL_P = " = ";
+    private static final String VERTICAL_P = "|| ";
+    private static final String CIRCULAR_P = " o ";
     private int numPipes = 0;
     long initialTime;
     long finalTime;
@@ -136,25 +136,25 @@ public class Game {
         // hacer condicion de nulpointerexcpetion
         if(board.get(currentTail).getLeft()!=null){
             System.out.println("//1");
-            condition = board.get(currentTail).getNode().getType().equals(opt1) && board.get(currentTail).getLeft()==board.get(randDrain);
+            condition = board.get(currentTail).getNode().getType().equals(HORIZONTAL_P) && board.get(currentTail).getLeft()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if(board.get(currentTail).getRight()!=null){
             System.out.println("//2");
-            condition = board.get(currentTail).getNode().getType().equals(opt1) && board.get(currentTail).getRight()==board.get(randDrain);
+            condition = board.get(currentTail).getNode().getType().equals(HORIZONTAL_P) && board.get(currentTail).getRight()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if(board.get(currentTail).getUp()!=null){
             System.out.println("//3");
-            condition = board.get(currentTail).getNode().getType().equals(opt2) && board.get(currentTail).getUp()==board.get(randDrain);
+            condition = board.get(currentTail).getNode().getType().equals(VERTICAL_P) && board.get(currentTail).getUp()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
         if (board.get(currentTail).getDown()!=null) {
             System.out.println("//4");
-            condition = board.get(currentTail).getNode().getType().equals(opt2) && board.get(currentTail).getDown()==board.get(randDrain);
+            condition = board.get(currentTail).getNode().getType().equals(VERTICAL_P) && board.get(currentTail).getDown()==board.get(randDrain);
             if(condition)
                 finalCondition = true;
         }
@@ -181,7 +181,7 @@ public class Game {
         key[0] = Integer.parseInt(keyStr[0]);
         key[1] = Integer.parseInt(keyStr[1]);
         boxKeyLinks(key, board.get(currentTail));
-        System.out.println("//CurrentTAil: "+currentTail);
+        System.out.println("//CurrentTail: "+currentTail);
         /**
          * 1: =
          * 2: ||
@@ -195,29 +195,29 @@ public class Game {
                 if(board.get(randSource).getRight()==board.get(coordinate) || board.get(randSource).getLeft()==board.get(coordinate)){
                     condition = true;
                 }
-                else if (pipesList.getTail().getType().equals(" o ")) {
+                else if (pipesList.getTail().getType().equals(CIRCULAR_P)) {
                     if(board.get(currentTail).getDown()!=null){
                         if(board.get(currentTail).getDown().getNode()!=null){
-                            condition = board.get(currentTail).getDown().getNode().getType().equals("|| ");
+                            condition = board.get(currentTail).getDown().getNode().getType().equals(VERTICAL_P);
                         }
                     }
                     if(board.get(currentTail).getUp()!=null){
                         if(board.get(currentTail).getUp().getNode()!=null){
-                            condition = board.get(currentTail).getUp().getNode().getType().equals("|| ");
+                            condition = board.get(currentTail).getUp().getNode().getType().equals(VERTICAL_P);
                         }
                     }
 
                 }
                 // Here would ejecute CONDITION {if (condition)} Line +-223
-                else if (pipesList.getTail().getType().equals("|| ")) {
+                else if (pipesList.getTail().getType().equals(VERTICAL_P)) {
                     System.out.println("You can't put any type of pipe here. There is a vertical pipe previosly");
-                } else if (pipesList.getTail().getType().equals(" = ")) {
+                } else if (pipesList.getTail().getType().equals(HORIZONTAL_P)) {
                     if (opt.equals("1")) {
-                        setNodeType(key,coordinate, " = ");
+                        setNodeType(key,coordinate, HORIZONTAL_P);
                     } else if (opt.equals("2")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("3")) {
-                        setNodeType(key,coordinate, " o ");
+                        setNodeType(key,coordinate, CIRCULAR_P);
                     } else if (opt.equals("4")) {
                         System.out.println("There is no pipe to delete");
                     }
@@ -225,7 +225,7 @@ public class Game {
                 //final
                 if (condition) {
                     if (opt.equals("1")) {
-                        setNodeType(key,coordinate, " = ");
+                        setNodeType(key,coordinate, HORIZONTAL_P);
                     } else if (opt.equals("2") || opt.equals("3")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("4")) {
@@ -239,26 +239,26 @@ public class Game {
                 if(board.get(randSource).getDown()==board.get(coordinate) || board.get(randSource).getUp()==board.get(coordinate)){
                     condition = true;
                 }
-                else if (pipesList.getTail().getType().equals(" o ")) {
+                else if (pipesList.getTail().getType().equals(CIRCULAR_P)) {
                     if(board.get(currentTail).getRight()!=null){
                         if(board.get(currentTail).getRight().getNode()!=null){
-                            condition = board.get(currentTail).getRight().getNode().getType().equals(" = ");
+                            condition = board.get(currentTail).getRight().getNode().getType().equals(HORIZONTAL_P);
                         }
                     }
                     if(board.get(currentTail).getLeft()!=null){
                         if(board.get(currentTail).getLeft().getNode()!=null){
-                            condition = board.get(currentTail).getLeft().getNode().getType().equals(" = ");
+                            condition = board.get(currentTail).getLeft().getNode().getType().equals(HORIZONTAL_P);
                         }
                     }
-                } else if (pipesList.getTail().getType().equals(" = ")) {
+                } else if (pipesList.getTail().getType().equals(HORIZONTAL_P)) {
                     System.out.println("You can't put any type of pipe here. There is a vertical pipe previosly");
-                } else if (pipesList.getTail().getType().equals("|| ")) {
+                } else if (pipesList.getTail().getType().equals(VERTICAL_P)) {
                     if (opt.equals("1")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("2")) {
-                        setNodeType(key,coordinate, "|| ");
+                        setNodeType(key,coordinate, VERTICAL_P);
                     } else if (opt.equals("3")) {
-                        setNodeType(key,coordinate, " o ");
+                        setNodeType(key,coordinate, CIRCULAR_P);
                     } else if (opt.equals("4")) {
                         System.out.println("There is no pipe to delete");
                     }
@@ -268,7 +268,7 @@ public class Game {
                     if (opt.equals("1") || opt.equals("3")) {
                         System.out.println("You can't put this type of pipe here");
                     } else if (opt.equals("2")) {
-                        setNodeType(key,coordinate, "|| ");
+                        setNodeType(key,coordinate, VERTICAL_P);
                     } else if (opt.equals("4")) {
                         System.out.println("There is no pipe to delete");
                     }
