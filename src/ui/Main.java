@@ -90,7 +90,7 @@ public class Main{
                         " * 1: Horizontal pipe (=)\n" +
                         " * 2: Vertical pipe (||)\n" +
                         " * 3: Circular pipe (o)\n" +
-                        " * 4: Delete pipe");
+                        " * 4: Delete pipe [If you delete one, you delete all next pipes]");
 
                 String type = sc.nextLine();
                 pipeMania.getGame().setBoxNodeType(coordinate, type);

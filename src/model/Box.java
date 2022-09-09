@@ -23,11 +23,11 @@ public class Box {
         }
     }
 
-    public NodeLL getNode() {
+    public NodeLL getNodeLL() {
         return nodeLL;
     }
 
-    public void setNode(NodeLL nodeLL) {
+    public void setNodeLL(NodeLL nodeLL) {
         this.nodeLL = nodeLL;
     }
 

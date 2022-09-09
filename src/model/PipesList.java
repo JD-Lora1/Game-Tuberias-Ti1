@@ -1,10 +1,15 @@
 package model;
 
+import org.w3c.dom.Node;
+
+import java.util.ArrayList;
+
 public class PipesList {
 
     private NodeLL source; // Fuente F
     private NodeLL drain; // Drenaje D
     private NodeLL tail; // Temporal tail
+    private ArrayList<String> coordinatesToDelete = new ArrayList<>();
 
     public void addLast(NodeLL nodeLL){
         if(tail == source){
@@ -19,13 +24,21 @@ public class PipesList {
         }
     }
 
-    public void delete(NodeLL toDelete){
-        tail = toDelete.getPrev();
-        tail.setNext(null);
-        toDelete.setPrev(null);
-        if (drain.getPrev()!= null){
-            drain.setPrev(null);
+    public void delete(NodeLL current){
+        tail = current.getPrev();
+        coordinatesToDelete.clear();
+        delete(current,null);
+    }
+    private void delete(NodeLL current, NodeLL currentNext){
+        if(current==null || current==drain){
+            return;
         }
+        coordinatesToDelete.add(current.getCoordinate());
+        currentNext = current.getNext();
+        current.setNext(null);
+        current.setPrev(null);
+
+        delete(current.getNext(), currentNext);
     }
 
     //GET and SET
@@ -52,5 +65,9 @@ public class PipesList {
 
     public void setTail(NodeLL tail) {
         this.tail = tail;
+    }
+
+    public ArrayList<String> getCoordinatesToDelete() {
+        return coordinatesToDelete;
     }
 }
