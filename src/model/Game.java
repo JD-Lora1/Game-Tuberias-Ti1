@@ -31,7 +31,6 @@ public class Game {
     }
 
     public void createBoxes() {
-        initialTime = System.currentTimeMillis();
         int[] key = new int[2];
         key[0] = 0;
         key[1] = 0;
@@ -47,6 +46,7 @@ public class Game {
         randDrain = rand2[0] + "," + rand2[1];
         currentTail = randSource;
 
+        initialTime = System.currentTimeMillis();
         createBoxes(key, "", randSource, randDrain);
     }
 
@@ -135,7 +135,15 @@ public class Game {
     public String waterFlow(String opt){
         boolean condition = false;
         boolean finalCondition = false;
+
+        int[] key = new int[2];
+        String[] keyStr = currentTail.split(",");
+        key[0] = Integer.parseInt(keyStr[0]);
+        key[1] = Integer.parseInt(keyStr[1]);
+        boxKeyLinks(key, board.get(currentTail));
+
         // hacer condicion de nulpointerexcpetion
+        System.out.println("wF: "+currentTail);
         if(board.get(currentTail).getLeft()!=null){
             System.out.println("1");
             condition = board.get(currentTail).getNodeLL().getType().equals(HORIZONTAL_P) && board.get(currentTail).getLeft()==board.get(randDrain);
@@ -176,13 +184,13 @@ public class Game {
             pipesList.getTail().setNext(pipesList.getDrain());
             pipesList.setTail(pipesList.getDrain());
             currentTail = randDrain;
-            System.out.println("Ganaste!!");
+            System.out.println("You won!!");
             finalTime = System.currentTimeMillis();
             scoreTime = (finalTime-initialTime)/1000;
-            System.out.println("Tu puntaje: "+getScore());
+            System.out.println("Your score: "+getScore());
             opt = "3";
         }else {
-            System.out.println("Perdiste");
+            System.out.println("Keep Trying :)");
         }
         return opt;
     }
@@ -292,6 +300,7 @@ public class Game {
         }else {
             setBoxFilledNodeType(coordinate, opt);
         }
+        System.out.println(currentTail+"---");
     }
 
     public void setBoxFilledNodeType(String coordinate, String opt){
@@ -299,6 +308,7 @@ public class Game {
             pipesList.delete(board.get(coordinate).getNodeLL());
             for (int i = 0; i<pipesList.getCoordinatesToDelete().size();i++){
                 board.get(pipesList.getCoordinatesToDelete().get(i)).setNodeLL(null);
+                numPipes--;
             }
             actualizeCurrentTail();
             System.out.println("The pipes were deleted");
