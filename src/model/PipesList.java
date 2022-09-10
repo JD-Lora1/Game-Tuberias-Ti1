@@ -1,7 +1,5 @@
 package model;
 
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 
 public class PipesList {
@@ -39,6 +37,19 @@ public class PipesList {
         current.setPrev(null);
 
         delete(currentNext, currentNext);
+    }
+
+    public boolean waterFlow(){
+        return waterFlow(source);
+    }
+
+    private boolean waterFlow(NodeLL current){
+        if (current.getNext() == null)
+            return false;
+        if (current.getNext() == getDrain())
+            return true;
+
+        return waterFlow(current.getNext());
     }
 
     //GET and SET

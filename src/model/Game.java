@@ -133,8 +133,8 @@ public class Game {
     }
     //Flow
     public String waterFlow(String opt){
-        boolean condition = false;
-        boolean finalCondition = false;
+        boolean condition;
+        boolean breakCondition = true;
 
         int[] key = new int[2];
         String[] keyStr = currentTail.split(",");
@@ -143,51 +143,51 @@ public class Game {
         boxKeyLinks(key, board.get(currentTail));
 
         // hacer condicion de nulpointerexcpetion
-        System.out.println("wF: "+currentTail);
         if(board.get(currentTail).getLeft()!=null){
-            System.out.println("1");
             condition = board.get(currentTail).getNodeLL().getType().equals(HORIZONTAL_P) && board.get(currentTail).getLeft()==board.get(randDrain);
             if(condition) {
-                finalCondition = true;
-                System.out.println("1.1");
+                pipesList.getDrain().setPrev(pipesList.getTail());
+                pipesList.getTail().setNext(pipesList.getDrain());
+                pipesList.setTail(pipesList.getDrain());
+                currentTail = randDrain;
+                breakCondition = false;
             }
         }
-        if(board.get(currentTail).getRight()!=null){
-            System.out.println("2");
+        if(board.get(currentTail).getRight()!=null && breakCondition){
             condition = board.get(currentTail).getNodeLL().getType().equals(HORIZONTAL_P) && board.get(currentTail).getRight()==board.get(randDrain);
             if(condition){
-                finalCondition = true;
-                System.out.println("2.1");
+                pipesList.getDrain().setPrev(pipesList.getTail());
+                pipesList.getTail().setNext(pipesList.getDrain());
+                pipesList.setTail(pipesList.getDrain());
+                currentTail = randDrain;
+                breakCondition = false;
             }
 
         }
-        if(board.get(currentTail).getUp()!=null){
-            System.out.println("3");
+        if(board.get(currentTail).getUp()!=null && breakCondition){
             condition = board.get(currentTail).getNodeLL().getType().equals(VERTICAL_P) && board.get(currentTail).getUp()==board.get(randDrain);
             if(condition){
-                finalCondition = true;
-                System.out.println("3.1");
+                pipesList.getDrain().setPrev(pipesList.getTail());
+                pipesList.getTail().setNext(pipesList.getDrain());
+                pipesList.setTail(pipesList.getDrain());
+                currentTail = randDrain;
+                breakCondition = false;
             }
         }
-        if (board.get(currentTail).getDown()!=null) {
-            System.out.println("4");
+        if (board.get(currentTail).getDown()!=null && breakCondition) {
             condition = board.get(currentTail).getNodeLL().getType().equals(VERTICAL_P) && board.get(currentTail).getDown()==board.get(randDrain);
             if(condition){
-                finalCondition = true;
-                System.out.println("4.1");
+                pipesList.getDrain().setPrev(pipesList.getTail());
+                pipesList.getTail().setNext(pipesList.getDrain());
+                pipesList.setTail(pipesList.getDrain());
+                currentTail = randDrain;
             }
         }
-        if(finalCondition){
-            //TODO
-            // Create WaterFlow -method on PipeList, which do current.getNext.
-            pipesList.getDrain().setPrev(pipesList.getTail());
-            pipesList.getTail().setNext(pipesList.getDrain());
-            pipesList.setTail(pipesList.getDrain());
-            currentTail = randDrain;
+        if(pipesList.waterFlow()){
             System.out.println("You won!!");
             finalTime = System.currentTimeMillis();
             scoreTime = (finalTime-initialTime)/1000;
-            System.out.println("Your score: "+getScore());
+            System.out.println("Your score: "+getScore()+"\n");
             opt = "3";
         }else {
             System.out.println("Keep Trying :)");
