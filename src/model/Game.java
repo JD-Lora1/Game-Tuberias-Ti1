@@ -96,10 +96,6 @@ public class Game {
         current.setRight(board.get(boxKeyLinks[1]));
         current.setDown(board.get(boxKeyLinks[2]));
         current.setLeft(board.get(boxKeyLinks[3]));
-        System.out.println( current.getUp());
-        System.out.println( current.getRight());
-        System.out.println( current.getDown());
-        System.out.println( current.getLeft());
     }
 
     public void print() {
