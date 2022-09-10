@@ -14,14 +14,6 @@ public class NodeABB {
         this.score = score;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
     public NodeABB getRight() {
         return right;
     }
@@ -40,10 +32,6 @@ public class NodeABB {
 
     public double getScore() {
         return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
     }
 
     @Override

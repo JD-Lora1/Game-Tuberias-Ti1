@@ -1,7 +1,6 @@
 package model;
 
 public class NodeLL {
-
     private String type;
     private String coordinate;
     private NodeLL next;
