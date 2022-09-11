@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Game {
 
-    private double score;
     private final Player player;
     private HashMap<String, Box> board;
     private PipesList pipesList;
@@ -18,14 +17,16 @@ public class Game {
     private static final String VERTICAL_P = "|| ";
     private static final String CIRCULAR_P = " o ";
     private int numPipes = 0;
-    long initialTime;
-    long finalTime;
-    long scoreTime;
+    private double score;
+    private long initialTime;
+    private long finalTime;
+    private long scoreTime;
 
     public Game(Player player) {
         this.player = player;
         board = new HashMap<>();
         pipesList = new PipesList();
+        numPipes = 0;
     }
 
     public void createBoxes() {
@@ -126,9 +127,6 @@ public class Game {
     //Flow
     public String waterFlow(String opt){
         boolean breakCondition = true;
-        //Create links to the currentTail
-        boxKeyLinks(currentTail, board.get(currentTail));
-
         if(board.get(currentTail).getLeft()!=null){
             if(board.get(currentTail).getNodeLL().getType().equals(HORIZONTAL_P)
                     && board.get(currentTail).getLeft()==board.get(randDrain)) {
@@ -158,11 +156,11 @@ public class Game {
         if(pipesList.waterFlow()){
             finalTime = System.currentTimeMillis();
             scoreTime = (finalTime-initialTime)/1000;
-            System.out.println("You won!!");
-            System.out.println("Your score: "+getScore()+"\n");
+            //System.out.println("Tiempo en segundos: "+scoreTime+"/ Tuberias usadas: "+numPipes);
+            System.out.println("The Water's Flow is Great. You won!!\nYour score: "+getScore()+"\n");
             opt = "3";
         }else {
-            System.out.println("Keep Trying :)");
+            System.out.println("Seems there is something wrong with the pipes :(.\nKeep Trying\n");
         }
         return opt;
     }
@@ -204,7 +202,6 @@ public class Game {
                         }
                     }
                 }
-                // Here would ejecute CONDITION {if (condition)} Line +-222
                 else if (pipesList.getTail().getType().equals(VERTICAL_P)) {
                     System.out.println("You can't put any type of pipe here. There is a vertical pipe previosly");
                 } else if (pipesList.getTail().getType().equals(HORIZONTAL_P)) {
@@ -218,7 +215,7 @@ public class Game {
                         System.out.println("There is no pipe to delete");
                     }
                 }
-                //final
+                //for " o " and "F"
                 if (condition) {
                     if (opt.equals("1")) {
                         setNodeType(key,coordinate, HORIZONTAL_P);
@@ -270,13 +267,13 @@ public class Game {
                     }
                 }
             }else {
-                System.out.println("You should continue connecting pipes to the Tail");
-                System.out.println("If there are no pipes, the tail is the Source (F)");
+                System.out.println("You should continue connecting pipes to the Tail\n" +
+                        "If there are no pipes, the tail is the Source (F)");
             }
         }else {
             setBoxFilledNodeType(coordinate, opt);
         }
-        System.out.println(currentTail+"---");
+        boxKeyLinks(currentTail, board.get(currentTail));
     }
 
     public void setBoxFilledNodeType(String coordinate, String opt){
@@ -289,8 +286,8 @@ public class Game {
             actualizeCurrentTail();
             System.out.println("The pipes were deleted");
         }else {
-            System.out.println("You can't edit this pipe");
-            System.out.println("If you wanna change it, first delete it(to delete all of his nexts pipes)");
+            System.out.println("You can't edit this pipe\n" +
+                    "If you wanna change it, first delete it (to delete all of his nexts pipes)");
         }
     }
 
@@ -299,7 +296,6 @@ public class Game {
     }
 
     public void setNodeType(String key, String coordinate, String type){
-        //actualizeCurrentTail();
         boxKeyLinks(key, board.get(coordinate));
         board.get(coordinate).setNodeLL(new NodeLL(type,coordinate));
         pipesList.addLast(board.get(coordinate).getNodeLL());
@@ -311,11 +307,9 @@ public class Game {
         return board;
     }
 
-    public int getNumPipes() {
-        return numPipes;
-    }
     public double getScore(){
-        score = numPipes*100 - (60-scoreTime)*10;
+        score = numPipes*100 - ((60-scoreTime)*10);
+        //We should use absolute value of ((60-scoreTime)*10)
         return score;
     }
 

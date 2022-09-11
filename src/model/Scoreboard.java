@@ -31,7 +31,12 @@ public class Scoreboard {
     }
 
     public void inOrder(){
-        inOrder(root);
+        System.out.println("Scores: ");
+        if (root==null)
+            System.out.println("- There are no scores yet");
+        else
+            inOrder(root);
+        System.out.println("");
     }
 
     private void inOrder(NodeABB current){

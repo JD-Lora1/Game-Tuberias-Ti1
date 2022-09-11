@@ -39,7 +39,4 @@ public class NodeLL {
         return coordinate;
     }
 
-    public void setCoordinate(String coordinate) {
-        this.coordinate = coordinate;
-    }
 }
