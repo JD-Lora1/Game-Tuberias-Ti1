@@ -6,6 +6,9 @@
 ## Nota:
 El UML se encuentra en la carpeta /doc en formato de VisualParadigm
 
+## Developer:
+El tablero es un hashmap, que tiene boxes (casillas) las cuales pueden contener o no un NodeLL. Las boxes tienen como atributos una box para cada punto cardinal, el cual es nulo por defecto, a menos de que la box contenga un NodeLL de la lista enlazada.
+
 ## DESCRIPCION
 Desarrollar una solución de software que permita simular un videojuego de tuberías, donde un usuario pueda editar las casillas de un tablero de 8x8, colocando o quitando tuberías entre la fuente y el drenaje, siguiendo ciertas reglas, si el agua llega de la fuente al drenaje, este gana. Así mismo se debe permitir al usuario que vea su puntaje obtenido.
 
