@@ -36,6 +36,6 @@ public class NodeABB {
 
     @Override
     public String toString() {
-        return "Name: " + nickName + " Score: " + score;
+        return nickName + " - " + score;
     }
 }

@@ -54,10 +54,6 @@ public class PipesList {
 
     //GET and SET
 
-    public NodeLL getSource() {
-        return source;
-    }
-
     public void setSource(NodeLL source) {
         this.source = source;
     }

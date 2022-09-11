@@ -21,10 +21,6 @@ public class Control {
         game.print();
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public Scoreboard getScoreboard() {
         return scoreboard;
     }

@@ -23,7 +23,7 @@ public class Main{
     }
 
     public String options (){
-        System.out.println("1.New game\n2.Score \n3.Exit\n");
+        System.out.println("1.New game\n2.View Scores \n3.Exit\n");
         String select = sc.nextLine();
         return select;
     }
@@ -32,13 +32,12 @@ public class Main{
         switch (select){
 
             case "1":
-                System.out.println("Type your nickname");
+                System.out.println("Type your nickname: ");
                 String nickname = sc.nextLine();
                 pipeMania.startGame(nickname);
 
                 String select2;
                 do{
-                    //select2 = options2();
                     pipeMania.toPrintGame();
                     select2 = menu2(options2());
 
@@ -57,7 +56,7 @@ public class Main{
     }
 
     public String options2 (){
-        System.out.println("1.Lay pipe\n2.Simulate water flow \n3.Exit\n");
+        System.out.println("1.Edit box/pipe\n2.Simulate water flow \n3.Exit\n");
         String select2 = sc.nextLine();
         return select2;
     }
