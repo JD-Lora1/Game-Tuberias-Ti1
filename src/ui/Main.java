@@ -52,6 +52,9 @@ public class Main{
             case "3":
                 System.out.print("Bye!");
                 break;
+            default:
+                System.out.println("Please provide a valid option");
+                break;
         }
     }
 
