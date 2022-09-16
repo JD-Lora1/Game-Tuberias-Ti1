@@ -4,7 +4,7 @@
 * Santiago Prado
 
 ## Learning:
-In this proyect we learnt about this concepts: Linked-List, HashMaps, time, and Exceptions
+In this proyect we learnt about these concepts: Linked-List, HashMaps, time, and Exceptions
 
 ## Nota:
 El UML se encuentra en la carpeta /doc en formato de VisualParadigm
