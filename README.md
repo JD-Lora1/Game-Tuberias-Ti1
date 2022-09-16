@@ -1,7 +1,7 @@
 ## Integrantes:
-* Juan Diego Lora
-* Jeison Lasprilla
-* Santiago Prado
+* Juan Diego Lora - A00369885
+* Jeison Lasprilla - A00380415
+* Santiago Prado - A00365113
 
 ## Learning:
 In this proyect we learnt about these concepts: Linked-List, HashMaps, time, and Exceptions
